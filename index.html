@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Shortly - Professional URL Shortener. Shorten your long URLs into clean, short, professional links instantly.">
+  <meta name="keywords" content="URL shortener, short links, link shortener, Shortly">
+  <meta name="author" content="Shortly">
+  <meta property="og:title" content="Shortly - Professional URL Shortener">
+  <meta property="og:description" content="Shorten your long URLs into clean, short, professional links instantly.">
+  <meta property="og:type" content="website">
+  <title>Shortly - Professional URL Shortener</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+</head>
+<body>
+  <div id="particles"></div>
+
+  <!-- Navigation -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <img src="assets/logo.svg" alt="Shortly Logo" class="nav-logo" width="32" height="32">
+        <span class="nav-brand-name">Shortly</span>
+      </div>
+      <button class="nav-toggle" aria-label="Toggle navigation menu" id="navToggle">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#hero" class="nav-link active">Home</a></li>
+        <li><a href="#features" class="nav-link">Features</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+        <li>
+          <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+            <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-badge">
+            <span class="badge-pulse"></span>
+            Free & Fast URL Shortener
+          </div>
+          <h1 class="hero-title">
+            Shorten Your <span class="gradient-text">Links</span> in Seconds
+          </h1>
+          <p class="hero-subtitle">
+            Transform long, messy URLs into clean, short, professional links.<br>
+            Fast, secure, and free. No sign-up required.
+          </p>
+
+          <!-- URL Input -->
+          <div class="url-input-wrapper" id="dropZone">
+            <div class="input-group">
+              <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+              <input type="url" id="urlInput" placeholder="Paste your long URL here..." autocomplete="url" spellcheck="false">
+              <button class="btn btn-primary" id="shortenBtn">
+                <span class="btn-text">Shorten</span>
+                <span class="btn-loader"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg></span>
+              </button>
+            </div>
+            <div class="drag-hint">Drag & drop a URL here</div>
+          </div>
+
+          <!-- URL Preview Bar -->
+          <div class="url-bar">
+            <div class="url-bar-inner">
+              <span class="url-bar-scheme">https://</span>
+              <span class="url-bar-base">shortly</span>
+              <div class="url-bar-domain-wrap">
+                <select id="domainSelect" class="url-bar-domain">
+                  <option value=".com">.com</option>
+                  <option value=".org">.org</option>
+                  <option value=".net">.net</option>
+                  <option value=".io">.io</option>
+                  <option value=".app">.app</option>
+                  <option value=".dev">.dev</option>
+                  <option value=".co">.co</option>
+                  <option value=".ai">.ai</option>
+                  <option value=".me">.me</option>
+                  <option value=".link">.link</option>
+                </select>
+              </div>
+              <span class="url-bar-slash">/</span>
+              <div class="url-bar-alias-wrap">
+                <input type="text" id="aliasInput" class="url-bar-alias" placeholder="alias (optional)" maxlength="30" autocomplete="off">
+              </div>
+            </div>
+          </div>
+          <div class="url-bar-preview" id="heroShort">
+            Generated: <span class="url-bar-preview-link" id="shortDomain">https://shortly.com/</span><span id="shortAlias">a8X92k</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Result Card -->
+    <section class="result-section" id="resultSection" style="display:none;">
+      <div class="container">
+        <div class="result-card glass">
+          <div class="result-header">
+            <h2>Your Short Link is Ready</h2>
+            <button class="btn-icon" id="closeResult" aria-label="Close result">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </button>
+          </div>
+          <div class="result-body">
+            <div class="result-left">
+              <div class="result-item">
+                <label>Short URL</label>
+                <div class="result-short-url">
+                  <a href="#" id="resultShortLink" target="_blank" rel="noopener noreferrer"></a>
+                  <div class="result-actions">
+                    <button class="btn-sm" id="copyBtn" aria-label="Copy short URL">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                      Copy
+                    </button>
+                    <button class="btn-sm" id="openBtn" aria-label="Open short URL">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                      Open
+                    </button>
+                    <button class="btn-sm btn-danger" id="deleteResultBtn" aria-label="Delete short URL">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="result-meta">
+                <div class="meta-item">
+                  <span class="meta-label">Original URL</span>
+                  <span class="meta-value" id="resultOriginalUrl"></span>
+                </div>
+                <div class="meta-item">
+                  <span class="meta-label">Created</span>
+                  <span class="meta-value" id="resultTime"></span>
+                </div>
+                <div class="meta-item">
+                  <span class="meta-label">Domain</span>
+                  <span class="meta-value" id="resultDomain"></span>
+                </div>
+              </div>
+            </div>
+            <div class="result-right">
+              <div class="qr-wrapper">
+                <div id="qrCode"></div>
+                <p class="qr-label">Scan to open</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+      <div class="container">
+        <div class="section-header">
+          <h2>Why Choose <span class="gradient-text">Shortly</span>?</h2>
+          <p>Everything you need to manage your links effectively</p>
+        </div>
+        <div class="features-grid">
+          <div class="feature-card glass">
+            <div class="feature-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+            <h3>Lightning Fast</h3>
+            <p>Generate short links in milliseconds with zero latency.</p>
+          </div>
+          <div class="feature-card glass">
+            <div class="feature-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+            <h3>Secure</h3>
+            <p>All data stays in your browser. No servers, no tracking.</p>
+          </div>
+          <div class="feature-card glass">
+            <div class="feature-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 7v5l3 3"/></svg></div>
+            <h3>History</h3>
+            <p>Full history of all your shortened links with timestamps.</p>
+          </div>
+          <div class="feature-card glass">
+            <div class="feature-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+            <h3>Copy</h3>
+            <p>One-click copy to clipboard with success animation.</p>
+          </div>
+          <div class="feature-card glass">
+            <div class="feature-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-9-9 9 9 0 0 1 9 9z"/><path d="M12 7v5l3 3"/></svg></div>
+            <h3>QR Code</h3>
+            <p>Auto-generated QR codes for every shortened link.</p>
+          </div>
+          <div class="feature-card glass">
+            <div class="feature-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><path d="M6 6h.01M6 18h.01"/></svg></div>
+            <h3>Responsive</h3>
+            <p>Works perfectly on every device - desktop, tablet, mobile.</p>
+          </div>
+          <div class="feature-card glass">
+            <div class="feature-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></div>
+            <h3>Local Storage</h3>
+            <p>All data stored locally. Your links, your privacy.</p>
+          </div>
+          <div class="feature-card glass">
+            <div class="feature-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+            <h3>Analytics</h3>
+            <p>Track total links, copies, opens, and daily activity.</p>
+          </div>
+          <div class="feature-card glass">
+            <div class="feature-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div>
+            <h3>Custom Domain</h3>
+            <p>Choose from 20+ domain extensions for your links.</p>
+          </div>
+          <div class="feature-card glass">
+            <div class="feature-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div>
+            <h3>Custom Alias</h3>
+            <p>Create memorable custom aliases for your links.</p>
+          </div>
+          <div class="feature-card glass">
+            <div class="feature-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div>
+            <h3>Export</h3>
+            <p>Export your history as CSV, JSON, or TXT.</p>
+          </div>
+          <div class="feature-card glass">
+            <div class="feature-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
+            <h3>Import</h3>
+            <p>Import previously exported data seamlessly.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section id="stats" class="stats">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-card glass">
+            <span class="stat-number" id="statTotal">0</span>
+            <span class="stat-label">Total Links</span>
+          </div>
+          <div class="stat-card glass">
+            <span class="stat-number" id="statToday">0</span>
+            <span class="stat-label">Today's Links</span>
+          </div>
+          <div class="stat-card glass">
+            <span class="stat-number" id="statCopied">0</span>
+            <span class="stat-label">Copied</span>
+          </div>
+          <div class="stat-card glass">
+            <span class="stat-number" id="statOpened">0</span>
+            <span class="stat-label">Opened</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- History Section -->
+    <section id="history" class="history">
+      <div class="container">
+        <div class="section-header">
+          <h2>Link <span class="gradient-text">History</span></h2>
+          <p>Manage all your shortened links in one place</p>
+        </div>
+        <div class="history-toolbar">
+          <div class="search-wrapper">
+            <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            <input type="text" id="searchInput" placeholder="Search by URL or alias..." autocomplete="off">
+          </div>
+          <div class="history-actions">
+            <button class="btn-sm" id="exportBtn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Export
+            </button>
+            <button class="btn-sm" id="importBtn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              Import
+            </button>
+            <button class="btn-sm btn-danger" id="clearAllBtn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+              Clear All
+            </button>
+          </div>
+        </div>
+        <input type="file" id="importFileInput" accept=".json" style="display:none">
+        <div class="history-list" id="historyList">
+          <div class="history-empty">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.3"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <p>No links yet. Shorten your first URL above!</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+      <div class="container">
+        <div class="section-header">
+          <h2>About <span class="gradient-text">Shortly</span></h2>
+          <p>Simple, fast, and private URL shortening</p>
+        </div>
+        <div class="about-content glass">
+          <p>Shortly is a professional URL shortener built with modern web technologies. All your links are stored locally in your browser — nothing is sent to any server. We believe in privacy-first tools that just work.</p>
+          <p>With support for 20+ domain extensions, custom aliases, QR codes, and full history management, Shortly gives you everything you need to create and manage short links like a pro.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+      <div class="container">
+        <div class="section-header">
+          <h2>Get In <span class="gradient-text">Touch</span></h2>
+          <p>Have questions or suggestions? We'd love to hear from you.</p>
+        </div>
+        <div class="contact-content glass">
+          <div class="contact-info">
+            <div class="contact-item">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <span>hello@shortly.app</span>
+            </div>
+            <div class="contact-item">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>San Francisco, CA</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="assets/logo.svg" alt="Shortly Logo" width="28" height="28">
+          <span>Shortly</span>
+          <p>Professional URL shortening,<br>powered by your browser.</p>
+        </div>
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="#" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+            <li><a href="#" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+            <li><a href="mailto:hello@shortly.app">Email</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Shortly. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Container -->
+  <div id="toastContainer" class="toast-container" role="alert" aria-live="polite"></div>
+
+  <!-- Scroll to top -->
+  <button id="scrollTopBtn" class="scroll-top" aria-label="Scroll to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <script src="js/qr.min.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>
