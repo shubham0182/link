@@ -14,7 +14,7 @@
 (function() {
   'use strict';
 
-  const API_BASE = window.location.origin;
+  const API_BASE = 'https://link-server.onrender.com';
   const DISPLAY_DOMAIN = 'https://shortly';
   const THEME_KEY = 'shortly_theme';
   const FAV_KEY = 'shortly_favorites';
